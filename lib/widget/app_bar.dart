@@ -1,3 +1,4 @@
+import 'package:dicoding_restaurant_app/provider/connectivity_provider.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +29,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         setState(() {
           _searchText = "";
           Provider.of<RestaurantProvider>(context, listen: false).getRestaurants();
+          Provider.of<ConnectivityProvider>(context, listen: false).getConnectivity();
+
         });
       } else {
         setState(() {
           _searchText = _filter.text;
           Provider.of<RestaurantProvider>(context, listen: false).getRestaurantsByQuery(_searchText);
+          Provider.of<ConnectivityProvider>(context, listen: false).getConnectivity();
         });
       }
     });

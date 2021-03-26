@@ -1,4 +1,5 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
+import 'package:dicoding_restaurant_app/provider/connectivity_provider.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
 import 'package:dicoding_restaurant_app/ui/detail_page.dart';
 import 'package:dicoding_restaurant_app/ui/home_page.dart';
@@ -7,7 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(create: (_) => RestaurantProvider(restaurantService: RestaurantService()), child: MyApp(),));
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => RestaurantProvider(restaurantService: RestaurantService())),
+          ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ],
+        child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {

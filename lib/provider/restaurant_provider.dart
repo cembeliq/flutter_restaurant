@@ -1,6 +1,6 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
-import 'package:dicoding_restaurant_app/provider/enum.dart';
+import 'package:dicoding_restaurant_app/provider/restaurant_state.dart';
 import 'package:flutter/material.dart';
 
 
@@ -39,6 +39,8 @@ class RestaurantProvider extends ChangeNotifier {
     }
   }
 
+  fetchAllRestaurant() => _fetchAllRestaurant();
+
   Future<dynamic> _fetchAllRestaurant() async {
     try{
       _state = ResultState.Loading;
@@ -55,10 +57,12 @@ class RestaurantProvider extends ChangeNotifier {
       }
     } catch(e){
       _state = ResultState.Error;
+      print('error -> $e');
       notifyListeners();
-      return _message = 'Error --> $e';
+      return _message = 'No internet connection';
     }
   }
+
 
   Future<dynamic> _fetchRestaurant(String query) async {
     print('Query in provider: ' + query);
@@ -77,8 +81,9 @@ class RestaurantProvider extends ChangeNotifier {
       }
     } catch(e){
       _state = ResultState.Error;
+      print('error -> $e');
       notifyListeners();
-      return _message = 'Error --> $e';
+      return _message = 'No internet connection';
     }
   }
 }

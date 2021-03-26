@@ -1,5 +1,5 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
-import 'package:dicoding_restaurant_app/provider/enum.dart';
+import 'package:dicoding_restaurant_app/provider/restaurant_state.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_detail_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
