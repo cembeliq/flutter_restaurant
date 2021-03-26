@@ -1,77 +1,78 @@
-import 'dart:convert';
+import 'package:dicoding_restaurant_app/data/model/category.dart';
+import 'package:dicoding_restaurant_app/data/model/customer_review.dart';
+import 'package:dicoding_restaurant_app/data/model/menu.dart';
 
 class Restaurant {
+  Restaurant({
+    this.id,
+    this.name,
+    this.description,
+    this.city,
+    this.address,
+    this.pictureId,
+    this.categories,
+    this.menus,
+    this.rating,
+    this.customerReviews,
+  });
+
   String id;
   String name;
   String description;
-  String pictureId;
   String city;
-  dynamic rating;
+  String address;
+  String pictureId;
+  List<Category> categories;
   Menus menus;
+  double rating;
+  List<CustomerReview> customerReviews;
 
-  Restaurant(
-      {this.id,
-      this.name,
-      this.description,
-      this.pictureId,
-      this.city,
-      this.rating,
-      this.menus});
-
-  factory Restaurant.fromJson(Map<String, dynamic> parsedJson) {
-    return Restaurant(
-      id: parsedJson['id'],
-      name: parsedJson['name'],
-      description: parsedJson['description'],
-      pictureId: parsedJson['pictureId'],
-      city: parsedJson['city'],
-      rating: parsedJson['rating'],
-      menus: Menus.fromJson(parsedJson['menus']),
-    );
-  }
-
-  List<Restaurant> parseRestaurants(String json) {
-    if (json == null) {
-      return [];
+  factory Restaurant.fromJson(Map<String, dynamic> json) {
+    if (json["categories"] == null) {
+      return Restaurant(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        city: json["city"],
+        address: json["address"] == null ? null : json["address"],
+        pictureId: json["pictureId"],
+        rating: json["rating"].toDouble(),
+      );
+    } else {
+      return Restaurant(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        city: json["city"],
+        address: json["address"] == null ? null : json["address"],
+        pictureId: json["pictureId"],
+        categories: List<Category>.from(
+                json["categories"].map((x) => Category.fromJson(x))) ??
+            null,
+        menus: Menus.fromJson(json["menus"]) == null
+            ? null
+            : Menus.fromJson(json["menus"]),
+        rating: json["rating"].toDouble(),
+        customerReviews: List<CustomerReview>.from(
+            json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
+      );
     }
-    final List parsed = jsonDecode(json)['restaurants'];
-    return parsed.map((json) => Restaurant.fromJson(json)).toList();
   }
-}
 
-class Menus {
-  List<Foods> foods;
-  List<Drinks> drinks;
-
-  Menus({this.foods, this.drinks});
-
-  factory Menus.fromJson(Map<String, dynamic> json) {
-    var listFoods = json['foods'] as List;
-    List<Foods> foodsList = listFoods.map((i) => Foods.fromJson(i)).toList();
-
-    var listDrinks = json['drinks'] as List;
-    List<Drinks> drinksList =
-        listDrinks.map((i) => Drinks.fromJson(i)).toList();
-    return Menus(foods: foodsList, drinks: drinksList);
-  }
-}
-
-class Foods {
-  String name;
-
-  Foods({this.name});
-
-  factory Foods.fromJson(Map<String, dynamic> json) {
-    return Foods(name: json['name']);
-  }
-}
-
-class Drinks {
-  String name;
-
-  Drinks({this.name});
-
-  factory Drinks.fromJson(Map<String, dynamic> json) {
-    return Drinks(name: json['name']);
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "city": city,
+        "address": address == null ? null : address,
+        "pictureId": pictureId,
+        "categories":
+            List<dynamic>.from(categories.map((x) => x.toJson())) ?? null,
+        "menus": menus.toJson() == null ? null : menus.toJson(),
+        "rating": rating,
+        "customerReviews":
+            List<dynamic>.from(customerReviews.map((x) => x.toJson())) == null
+                ? null
+                : List<dynamic>.from(customerReviews.map((x) => x.toJson())),
+      };
 }

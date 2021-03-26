@@ -1,10 +1,13 @@
+import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
+import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
 import 'package:dicoding_restaurant_app/ui/detail_page.dart';
 import 'package:dicoding_restaurant_app/ui/home_page.dart';
-import 'package:dicoding_restaurant_app/splash_screen.dart';
+import 'package:dicoding_restaurant_app/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(create: (_) => RestaurantProvider(restaurantService: RestaurantService()), child: MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (context) => SplashScreen(),
         HomePage.routeName: (context) => HomePage(),
         DetailPage.routeName: (context) => DetailPage(
-          restaurant: ModalRoute.of(context).settings.arguments
+          id: ModalRoute.of(context).settings.arguments
         )
       },
 
