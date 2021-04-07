@@ -4,10 +4,12 @@ import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
 import 'package:http/http.dart' as http;
 
 class RestaurantService {
-  static final String _baseUrl = 'https://restaurant-api.dicoding.dev/';
+
+  static final String _baseUrl = 'restaurant-api.dicoding.dev';
 
   Future<RestaurantResult> listRestaurant() async {
-    final response = await http.get(_baseUrl + 'list');
+    var url = Uri.https(_baseUrl, '/list');
+    final response = await http.get(url);
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
     } else {
@@ -16,7 +18,8 @@ class RestaurantService {
   }
 
   Future<RestaurantResult> detailRestaurant(String id) async {
-    final response = await http.get(_baseUrl + 'detail/' + id);
+    var url = Uri.https(_baseUrl, '/detail/$id');
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
@@ -26,7 +29,9 @@ class RestaurantService {
   }
 
   Future<RestaurantResult> searchRestaurant(query) async {
-    final response = await http.get(_baseUrl + 'search?q=' + query);
+    var url = Uri.https(_baseUrl, '/search', {'q': '$query'});
+    final response = await http.get(url);
+    // final response = await http.get(_baseUrl + 'search?q=' + query);
 
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));

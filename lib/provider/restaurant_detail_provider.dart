@@ -1,6 +1,6 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
-import 'package:dicoding_restaurant_app/provider/restaurant_state.dart';
+import 'package:dicoding_restaurant_app/utils/restaurant_state.dart';
 import 'package:flutter/foundation.dart';
 
 class RestaurantDetailProvider extends ChangeNotifier {

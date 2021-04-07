@@ -66,13 +66,12 @@ class Restaurant {
         "city": city,
         "address": address == null ? null : address,
         "pictureId": pictureId,
-        "categories":
-            List<dynamic>.from(categories.map((x) => x.toJson())) ?? null,
-        "menus": menus.toJson() == null ? null : menus.toJson(),
+        "categories": categories != null ?
+            List<dynamic>.from(categories.map((x) => x.toJson())) : null,
+        "menus": menus != null ? menus.toJson() : null,
         "rating": rating,
-        "customerReviews":
-            List<dynamic>.from(customerReviews.map((x) => x.toJson())) == null
-                ? null
-                : List<dynamic>.from(customerReviews.map((x) => x.toJson())),
+        "customerReviews": customerReviews != null ?
+            List<dynamic>.from(customerReviews.map((x) => x.toJson())) :
+                null,
       };
 }

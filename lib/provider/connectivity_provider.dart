@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dicoding_restaurant_app/provider/connection_state.dart';
+import 'package:dicoding_restaurant_app/utils/connection_state.dart';
 import 'package:flutter/foundation.dart';
 
 class ConnectivityProvider extends ChangeNotifier {

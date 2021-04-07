@@ -1,18 +1,31 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
-import 'package:dicoding_restaurant_app/provider/connection_state.dart';
+import 'package:dicoding_restaurant_app/utils/connection_state.dart';
 import 'package:dicoding_restaurant_app/provider/connectivity_provider.dart';
-import 'package:dicoding_restaurant_app/provider/restaurant_state.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
-import 'package:dicoding_restaurant_app/ui/card_restaurant.dart';
+import 'package:dicoding_restaurant_app/utils/restaurant_state.dart';
+import 'package:dicoding_restaurant_app/widget/card_restaurant.dart';
 import 'package:dicoding_restaurant_app/ui/detail_page.dart';
+import 'package:dicoding_restaurant_app/widget/app_bar.dart';
 import 'package:dicoding_restaurant_app/widget/check_connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RestaurantListWidget extends StatelessWidget {
+import '../provider/restaurant_provider.dart';
+
+class RestaurantListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(100),
+            child: AppBarWidget(query: '',)
+        ),
+        body: _buildList(context)
+    );
+  }
+
+  Widget _buildList(BuildContext context) {
     return Consumer2<RestaurantProvider, ConnectivityProvider>(
         builder: (context, state, state2, _) {
       if (state2.state == ConnectivityState.Connected) {
@@ -25,7 +38,7 @@ class RestaurantListWidget extends StatelessWidget {
             );
           } else {
             return RefreshIndicator(
-              onRefresh: _handleRefresh,
+              onRefresh: () => _handleRefresh(context),
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.result.restaurants.length,
@@ -33,10 +46,10 @@ class RestaurantListWidget extends StatelessWidget {
                     var restaurant = state.result.restaurants[index];
                     return CardRestaurant(
                       restaurant: restaurant,
-                      onPressed: () {
-                        Navigator.pushNamed(context, DetailPage.routeName,
-                            arguments: restaurant.id.toString());
-                      },
+                      // onPressed: () {
+                      //   Navigator.pushNamed(context, DetailPage.routeName,
+                      //       arguments: restaurant.id.toString());
+                      // },
                     );
                   }),
             );
@@ -62,7 +75,9 @@ class RestaurantListWidget extends StatelessWidget {
     });
   }
 
-  Future<RestaurantResult> _handleRefresh() async {
-    return await RestaurantProvider(restaurantService: RestaurantService()).fetchAllRestaurant();
+  Future<RestaurantResult> _handleRefresh(BuildContext context) async {
+    return await context.read<RestaurantProvider>().fetchAllRestaurant();
   }
+
+
 }

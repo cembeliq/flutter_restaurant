@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../ui/home_page.dart';
+
 class CheckConnectivity extends StatefulWidget {
   @override
   _CheckConnectivityState createState() => _CheckConnectivityState();
@@ -20,7 +22,7 @@ class _CheckConnectivityState extends State<CheckConnectivity> {
             builder: (context) => FlatButton(
                 child: Text("OK"),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushReplacementNamed(context, HomePage.routeName);
                 }),
           )
         ],
