@@ -14,6 +14,7 @@ final selectNotificationSubject = BehaviorSubject<String>();
 
 class NotificationHelper {
   static NotificationHelper _instance;
+  Random random = new Random();
 
   NotificationHelper._internal() {
     _instance = this;
@@ -47,8 +48,8 @@ class NotificationHelper {
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       RestaurantResult restaurantResult) async {
-    Random random = new Random();
-    int randomNumber = random.nextInt(20) + 1;
+
+    int randomNumber = random.nextInt(restaurantResult.count - 1 ) + 1;
     var _channelId = "11";
     var _channelName = "channel_011";
     var _channelDescription = "dicoding list restaurant channel";
