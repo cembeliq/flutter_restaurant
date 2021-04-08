@@ -19,7 +19,7 @@ class RestaurantListPage extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(100),
-            child: AppBarWidget(query: '',)
+            child: AppBarWidget(query: '')
         ),
         body: _buildList(context)
     );

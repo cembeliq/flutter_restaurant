@@ -9,38 +9,17 @@ import 'package:dicoding_restaurant_app/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 
 
-class CardRestaurant extends StatefulWidget {
+class CardRestaurant extends StatelessWidget {
   final Restaurant restaurant;
-  final RestaurantResult restaurantResult;
+  // final RestaurantResult restaurantResult;
   // final Function onPressed;
 
-  const CardRestaurant({Key key, @required this.restaurant, @required this.restaurantResult}) : super(key: key);
+  const CardRestaurant({Key key, @required this.restaurant}) : super(key: key);
 
-  @override
-  _CardRestaurantState createState() => _CardRestaurantState();
-}
-
-class _CardRestaurantState extends State<CardRestaurant> {
-  final NotificationHelper _notificationHelper = NotificationHelper();
 
   final String imageUrl = 'https://restaurant-api.dicoding.dev/images/medium/';
 
-  @override
-  void initState() {
-    super.initState();
-    _notificationHelper.configureSelectNotificationSubject2(
-        context,
-        DetailPage.routeName);
-    // _notificationHelper.configureDidReceiveLocalNotificationSubject(
-    //     context, DetailPage.routeName);
-  }
 
-  @override
-  void dispose() {
-    selectNotificationSubject.close();
-    // didReceiveLocalNotificationSubject.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,27 +36,25 @@ class _CardRestaurantState extends State<CardRestaurant> {
         ListTile(
           isThreeLine: true,
           onTap: () async {
-            Navigation.intentWithData(DetailPage.routeName, widget.restaurant.id);
-            await _notificationHelper
-                .showNotification2(flutterLocalNotificationsPlugin, widget.restaurant);
-            },
+            Navigation.intentWithData(DetailPage.routeName, restaurant.id);
+          },
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           leading: Hero(
-            tag: widget.restaurant.name,
+            tag: restaurant.name,
             child: Container(
               width: 100,
               child: CachedNetworkImage(
                 fit: BoxFit.fitWidth,
-                imageUrl: imageUrl + widget.restaurant.pictureId,
+                imageUrl: imageUrl + restaurant.pictureId,
                 placeholder: (context, url) =>  Center(child: new CircularProgressIndicator()),
                 errorWidget: (context, url, error) => new Icon(Icons.error),
               ),
             ),
           ),
-          title: Text(widget.restaurant.name),
+          title: Text(restaurant.name),
           subtitle: Stack(
             children: [
-              Text(widget.restaurant.city),
+              Text(restaurant.city),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Icon(
@@ -88,7 +65,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-                child: Text(widget.restaurant.rating.toString()),
+                child: Text(restaurant.rating.toString()),
               )
             ],
           ),

@@ -11,7 +11,7 @@ class BookmarksPage extends StatelessWidget {
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bookmark Title'),
+        title: Text('Bookmark Title', style: Theme.of(context).textTheme.headline5),
       ),
       body: _buildList(),
     );

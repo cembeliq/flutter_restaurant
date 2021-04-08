@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Settings', style: Theme.of(context).textTheme.headline5),
       ),
       body: _buildSettingList(context),
     );
