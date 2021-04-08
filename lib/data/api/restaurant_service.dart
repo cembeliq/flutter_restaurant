@@ -4,7 +4,6 @@ import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
 import 'package:http/http.dart' as http;
 
 class RestaurantService {
-
   static final String _baseUrl = 'restaurant-api.dicoding.dev';
 
   Future<RestaurantResult> listRestaurant() async {
@@ -39,5 +38,4 @@ class RestaurantService {
       throw Exception('Failed to search data');
     }
   }
-
 }

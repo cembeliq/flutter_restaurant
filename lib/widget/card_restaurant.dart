@@ -1,38 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicoding_restaurant_app/common/navigation.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant.dart';
-import 'package:dicoding_restaurant_app/data/model/restaurant_result.dart';
-import 'package:dicoding_restaurant_app/main.dart';
 import 'package:dicoding_restaurant_app/ui/detail_page.dart';
-import 'package:dicoding_restaurant_app/utils/notification_helper.dart';
-import 'package:dicoding_restaurant_app/widget/custom_button.dart';
 import 'package:flutter/material.dart';
-
 
 class CardRestaurant extends StatelessWidget {
   final Restaurant restaurant;
-  // final RestaurantResult restaurantResult;
-  // final Function onPressed;
 
   const CardRestaurant({Key key, @required this.restaurant}) : super(key: key);
 
-
   final String imageUrl = 'https://restaurant-api.dicoding.dev/images/medium/';
-
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // CustomButton(
-        //   text: 'Show plain notification with payload',
-        //   onPressed: () async {
-        //     await _notificationHelper
-        //         .showNotification2(flutterLocalNotificationsPlugin);
-        //   },
-        // ),
-
         ListTile(
           isThreeLine: true,
           onTap: () async {
@@ -46,7 +28,8 @@ class CardRestaurant extends StatelessWidget {
               child: CachedNetworkImage(
                 fit: BoxFit.fitWidth,
                 imageUrl: imageUrl + restaurant.pictureId,
-                placeholder: (context, url) =>  Center(child: new CircularProgressIndicator()),
+                placeholder: (context, url) =>
+                    Center(child: new CircularProgressIndicator()),
                 errorWidget: (context, url, error) => new Icon(Icons.error),
               ),
             ),

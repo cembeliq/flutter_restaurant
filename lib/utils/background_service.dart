@@ -1,11 +1,9 @@
 import 'dart:isolate';
-
 import 'dart:ui';
 
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
 import 'package:dicoding_restaurant_app/main.dart';
 import 'package:dicoding_restaurant_app/utils/notification_helper.dart';
-
 
 final ReceivePort port = ReceivePort();
 

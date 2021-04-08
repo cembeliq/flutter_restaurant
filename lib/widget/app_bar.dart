@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 
 class AppBarWidget extends StatefulWidget {
   final String query;
+
   AppBarWidget({Key key, @required this.query}) : super(key: key);
 
   @override
   _AppBarWidgetState createState() => _AppBarWidgetState();
-
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
@@ -20,7 +20,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   Icon _searchIcon = Icon(
     Icons.search,
-
     color: Colors.black26,
   );
 
@@ -36,15 +35,18 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       if (_filter.text.isEmpty) {
         setState(() {
           _searchText = "";
-          Provider.of<RestaurantProvider>(context, listen: false).getRestaurants();
-          Provider.of<ConnectivityProvider>(context, listen: false).getConnectivity();
-
+          Provider.of<RestaurantProvider>(context, listen: false)
+              .getRestaurants();
+          Provider.of<ConnectivityProvider>(context, listen: false)
+              .getConnectivity();
         });
       } else {
         setState(() {
           _searchText = _filter.text;
-          Provider.of<RestaurantProvider>(context, listen: false).getRestaurantsByQuery(_searchText);
-          Provider.of<ConnectivityProvider>(context, listen: false).getConnectivity();
+          Provider.of<RestaurantProvider>(context, listen: false)
+              .getRestaurantsByQuery(_searchText);
+          Provider.of<ConnectivityProvider>(context, listen: false)
+              .getConnectivity();
         });
       }
     });
@@ -66,7 +68,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           hintText: 'Search...',
         ),
       );
-
     } else {
       this._appBarSearchTitle = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +82,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           ),
         ],
       );
-
     }
 
     if (this._searchIconWhite.icon != Icons.search) {
@@ -92,7 +92,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           hintText: 'Search...',
         ),
       );
-
     } else {
       this._appBarSearchTitleWhite = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,20 +106,20 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           ),
         ],
       );
-
     }
-    return Consumer<PreferencesProvider>(
-      builder: (context, provider, child) {
-        return AppBar(
-          toolbarHeight: 100,
-          title: provider.isDarkTheme ? _appBarSearchTitleWhite : _appBarSearchTitle,
-          leading: IconButton(
-            icon: provider.isDarkTheme ? _searchIconWhite : _searchIcon,
-            onPressed: provider.isDarkTheme ? _searchPressedWhite : _searchPressed,
-          ),
-          backgroundColor: provider.isDarkTheme ? Colors.black : Colors.white,
-          elevation: 0,
-        );
+    return Consumer<PreferencesProvider>(builder: (context, provider, child) {
+      return AppBar(
+        toolbarHeight: 100,
+        title:
+            provider.isDarkTheme ? _appBarSearchTitleWhite : _appBarSearchTitle,
+        leading: IconButton(
+          icon: provider.isDarkTheme ? _searchIconWhite : _searchIcon,
+          onPressed:
+              provider.isDarkTheme ? _searchPressedWhite : _searchPressed,
+        ),
+        backgroundColor: provider.isDarkTheme ? Colors.black : Colors.white,
+        elevation: 0,
+      );
     });
   }
 

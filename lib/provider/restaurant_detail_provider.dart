@@ -7,7 +7,8 @@ class RestaurantDetailProvider extends ChangeNotifier {
   final RestaurantService restaurantService;
   final String id;
 
-  RestaurantDetailProvider({@required this.restaurantService, @required this.id}) {
+  RestaurantDetailProvider(
+      {@required this.restaurantService, @required this.id}) {
     _fetchRestaurantDetail(id);
   }
 
@@ -15,15 +16,15 @@ class RestaurantDetailProvider extends ChangeNotifier {
   String _message = '';
   ResultState _state;
 
-
   String get message => _message;
+
   RestaurantResult get result => _restaurantResult;
 
   ResultState get state => _state;
 
   Future<dynamic> _fetchRestaurantDetail(String query) async {
     print('Query in provider: ' + query);
-    try{
+    try {
       _state = ResultState.Loading;
       notifyListeners();
       final restaurant = await restaurantService.detailRestaurant(query);
@@ -36,11 +37,10 @@ class RestaurantDetailProvider extends ChangeNotifier {
         notifyListeners();
         return _restaurantResult = restaurant;
       }
-    } catch(e){
+    } catch (e) {
       _state = ResultState.Error;
       notifyListeners();
       return _message = '';
-
     }
   }
 }

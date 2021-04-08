@@ -1,7 +1,7 @@
 import 'package:dicoding_restaurant_app/data/api/restaurant_service.dart';
 import 'package:dicoding_restaurant_app/provider/database_provider.dart';
-import 'package:dicoding_restaurant_app/utils/restaurant_state.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_detail_provider.dart';
+import 'package:dicoding_restaurant_app/utils/restaurant_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +21,13 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_) => RestaurantDetailProvider(restaurantService: RestaurantService(), id: widget.id),
+    return ChangeNotifierProvider(
+      create: (_) => RestaurantDetailProvider(
+          restaurantService: RestaurantService(), id: widget.id),
       child: Scaffold(
         body: _buildItem(context),
-      ),);
+      ),
+    );
   }
 
   Widget _buildItem(BuildContext context) {
@@ -38,9 +41,9 @@ class _DetailPageState extends State<DetailPage> {
           var restaurant = state.result.restaurant;
           var id = restaurant.id;
           return Consumer<DatabaseProvider>(
-            builder: (context, stateDb, child){
+            builder: (context, stateDb, child) {
               return FutureBuilder<bool>(
-                future: stateDb.isBookmarked(id),
+                  future: stateDb.isBookmarked(id),
                   builder: (context, snapshot) {
                     var isBookmarked = snapshot.data ?? false;
                     return NestedScrollView(
@@ -55,7 +58,8 @@ class _DetailPageState extends State<DetailPage> {
                                 fit: BoxFit.fitWidth,
                               ),
                               title: Text(restaurant.name),
-                              titlePadding: EdgeInsets.only(left: 50, bottom: 16),
+                              titlePadding:
+                                  EdgeInsets.only(left: 50, bottom: 16),
                             ),
                           ),
                         ];
@@ -67,26 +71,28 @@ class _DetailPageState extends State<DetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Hero(
                                     tag: restaurant.name,
                                     child: Text(
                                       restaurant.name,
-                                      style: Theme.of(context).textTheme.headline5,
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
                                     ),
                                   ),
                                   Container(
                                       child: isBookmarked
                                           ? IconButton(
-                                              onPressed: () => stateDb.removeBookmark(id),
-                                              icon: Icon(Icons.favorite)
-                                            )
+                                              onPressed: () =>
+                                                  stateDb.removeBookmark(id),
+                                              icon: Icon(Icons.favorite))
                                           : IconButton(
-                                              onPressed: () => stateDb.addBookmark(restaurant),
-                                              icon: Icon(Icons.favorite_border)
-                                            )
-                                  ),
+                                              onPressed: () => stateDb
+                                                  .addBookmark(restaurant),
+                                              icon:
+                                                  Icon(Icons.favorite_border))),
                                 ],
                               ),
                               SizedBox(
@@ -100,7 +106,8 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                                   Text(
                                     restaurant.city,
-                                    style: Theme.of(context).textTheme.subtitle1,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
                                   )
                                 ],
                               ),
@@ -139,7 +146,8 @@ class _DetailPageState extends State<DetailPage> {
                                     ListView.builder(
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
-                                        itemCount: restaurant.menus.foods.length,
+                                        itemCount:
+                                            restaurant.menus.foods.length,
                                         itemBuilder: (context, index) {
                                           return Row(
                                             children: [
@@ -154,8 +162,8 @@ class _DetailPageState extends State<DetailPage> {
                                               ),
                                               Flexible(
                                                   flex: 2,
-                                                  child: Text(restaurant
-                                                      .menus.foods[index].name)),
+                                                  child: Text(restaurant.menus
+                                                      .foods[index].name)),
                                             ],
                                           );
                                         }),
@@ -168,13 +176,15 @@ class _DetailPageState extends State<DetailPage> {
                                     ListView.builder(
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
-                                        itemCount: restaurant.menus.drinks.length,
+                                        itemCount:
+                                            restaurant.menus.drinks.length,
                                         itemBuilder: (context, index) {
                                           return Row(
                                             children: [
                                               Flexible(
                                                   flex: 1,
-                                                  child: Icon(Icons.local_drink)),
+                                                  child:
+                                                      Icon(Icons.local_drink)),
                                               Flexible(
                                                 flex: 1,
                                                 child: SizedBox(
@@ -183,8 +193,8 @@ class _DetailPageState extends State<DetailPage> {
                                               ),
                                               Flexible(
                                                   flex: 1,
-                                                  child: Text(restaurant
-                                                      .menus.drinks[index].name)),
+                                                  child: Text(restaurant.menus
+                                                      .drinks[index].name)),
                                             ],
                                           );
                                         }),
@@ -196,18 +206,21 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                     );
-                  }
-              );
-
+                  });
             },
           );
-
         } else if (state.state == ResultState.NoData) {
-          return Center(child: Text(state.message),);
+          return Center(
+            child: Text(state.message),
+          );
         } else if (state.state == ResultState.Error) {
-          return Center(child: Text(state.message),);
+          return Center(
+            child: Text(state.message),
+          );
         } else {
-          return Center(child: Text(''),);
+          return Center(
+            child: Text(''),
+          );
         }
       },
     );

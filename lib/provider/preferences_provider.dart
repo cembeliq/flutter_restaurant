@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 
 class PreferencesProvider extends ChangeNotifier {
   bool _isDarkTheme = false;
+
   bool get isDarkTheme => _isDarkTheme;
 
   bool _isDailyRestaurantActive = false;
+
   bool get isDailyRestaurantActive => _isDailyRestaurantActive;
 
   ThemeData get themeData => _isDarkTheme ? darkTheme : lightTheme;

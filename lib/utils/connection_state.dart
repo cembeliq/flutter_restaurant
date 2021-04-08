@@ -1,1 +1,1 @@
-enum ConnectivityState{ Connected, NotConnected}
+enum ConnectivityState { Connected, NotConnected }

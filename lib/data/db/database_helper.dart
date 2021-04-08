@@ -12,7 +12,6 @@ class DatabaseHelper {
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
       _databaseHelper = DatabaseHelper._createObject();
-
     }
     return _databaseHelper;
   }
@@ -21,10 +20,9 @@ class DatabaseHelper {
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();
-    var db = openDatabase(
-        '$path/restaurantapp.db',
-        onCreate: (db, version) async {
-          await db.execute('''CREATE TABLE $_tblBookmark (
+    var db =
+        openDatabase('$path/restaurantapp.db', onCreate: (db, version) async {
+      await db.execute('''CREATE TABLE $_tblBookmark (
              id TEXT PRIMARY KEY,
              name TEXT,
              description TEXT,
@@ -32,11 +30,8 @@ class DatabaseHelper {
              address TEXT,
              rating REAL,
              pictureId TEXT
-           )     '''
-          );
-        },
-        version: 1
-    );
+           )     ''');
+    }, version: 1);
 
     return db;
   }
@@ -50,9 +45,24 @@ class DatabaseHelper {
 
   Future<void> insertBookmark(Restaurant restaurant) async {
     final db = await database;
-    var sql = 'INSERT INTO $_tblBookmark(id, name, description, city, address, rating, pictureId) values(?,?,?,?,?,?,?)';
-    print(restaurant.id + restaurant.name + restaurant.description + restaurant.city + restaurant.address + restaurant.rating.toString() + restaurant.pictureId);
-    await db.rawInsert(sql, [restaurant.id, restaurant.name, restaurant.description, restaurant.city, restaurant.address, restaurant.rating, restaurant.pictureId]);
+    var sql =
+        'INSERT INTO $_tblBookmark(id, name, description, city, address, rating, pictureId) values(?,?,?,?,?,?,?)';
+    print(restaurant.id +
+        restaurant.name +
+        restaurant.description +
+        restaurant.city +
+        restaurant.address +
+        restaurant.rating.toString() +
+        restaurant.pictureId);
+    await db.rawInsert(sql, [
+      restaurant.id,
+      restaurant.name,
+      restaurant.description,
+      restaurant.city,
+      restaurant.address,
+      restaurant.rating,
+      restaurant.pictureId
+    ]);
     // await db.insert(_tblBookmark, restaurant.toJson());
   }
 
@@ -72,7 +82,7 @@ class DatabaseHelper {
       whereArgs: [id],
     );
 
-    if (results.isNotEmpty){
+    if (results.isNotEmpty) {
       return results.first;
     } else {
       return {};
@@ -81,11 +91,6 @@ class DatabaseHelper {
 
   Future<void> removeBookmark(String id) async {
     final db = await database;
-    await db.delete(
-        _tblBookmark,
-        where: 'id = ?',
-        whereArgs: [id]
-    );
+    await db.delete(_tblBookmark, where: 'id = ?', whereArgs: [id]);
   }
-
 }

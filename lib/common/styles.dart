@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 final Color primaryColor = Color(0xFFFFFFFF);
 final Color secondaryColor = Color(0xFF6B38FB);
 final TextTheme myTextTheme = TextTheme(
@@ -10,11 +9,11 @@ final TextTheme myTextTheme = TextTheme(
   headline2: GoogleFonts.merriweather(
       fontSize: 57, fontWeight: FontWeight.w300, letterSpacing: -0.5),
   headline3:
-  GoogleFonts.merriweather(fontSize: 46, fontWeight: FontWeight.w400),
+      GoogleFonts.merriweather(fontSize: 46, fontWeight: FontWeight.w400),
   headline4: GoogleFonts.merriweather(
       fontSize: 32, fontWeight: FontWeight.w400, letterSpacing: 0.25),
   headline5:
-  GoogleFonts.merriweather(fontSize: 23, fontWeight: FontWeight.w400),
+      GoogleFonts.merriweather(fontSize: 23, fontWeight: FontWeight.w400),
   headline6: GoogleFonts.merriweather(
       fontSize: 19, fontWeight: FontWeight.w500, letterSpacing: 0.15),
   subtitle1: GoogleFonts.merriweather(
@@ -35,25 +34,18 @@ final TextTheme myTextTheme = TextTheme(
 
 ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
-        textTheme: myTextTheme.apply(bodyColor: Colors.black),
-        elevation: 0
-    ),
+        textTheme: myTextTheme.apply(bodyColor: Colors.black), elevation: 0),
     buttonTheme: ButtonThemeData(
         buttonColor: secondaryColor,
         textTheme: ButtonTextTheme.primary,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0))
-        )
-    ),
+            borderRadius: BorderRadius.all(Radius.circular(0)))),
     textTheme: myTextTheme,
     primaryColor: primaryColor,
     accentColor: secondaryColor,
     scaffoldBackgroundColor: Colors.white,
-
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: secondaryColor,
-        unselectedItemColor: Colors.grey
-    ),
+        selectedItemColor: secondaryColor, unselectedItemColor: Colors.grey),
     // This is the theme of your application.
     //
     // Try running your application with "flutter run". You'll see the
@@ -64,8 +56,7 @@ ThemeData lightTheme = ThemeData(
     // Notice that the counter didn't reset back to zero; the application
     // is not restarted.
     primarySwatch: Colors.blue,
-    visualDensity: VisualDensity.adaptivePlatformDensity
-);
+    visualDensity: VisualDensity.adaptivePlatformDensity);
 
 final Color darkPrimaryColor = Color(0xFF000000);
 final Color darkSecondaryColor = Color(0xff64ffda);

@@ -8,10 +8,12 @@ import 'package:provider/provider.dart';
 
 class BookmarksPage extends StatelessWidget {
   static const String bookmarksTitle = 'Bookmarks';
+
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bookmark Title', style: Theme.of(context).textTheme.headline5),
+        title: Text('Bookmark Title',
+            style: Theme.of(context).textTheme.headline5),
       ),
       body: _buildList(),
     );

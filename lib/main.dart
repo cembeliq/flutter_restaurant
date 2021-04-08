@@ -20,9 +20,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,39 +40,39 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => RestaurantProvider(restaurantService: RestaurantService())),
-          ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
-          ChangeNotifierProvider(
-            create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
-          ),
-          ChangeNotifierProvider(create: (_) => SchedulingProvider()),
-          ChangeNotifierProvider(
-            create: (_) => PreferencesProvider(
-              preferencesHelper: PreferencesHelper(
-                sharedPreferences: SharedPreferences.getInstance(),
-              ),
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) =>
+                RestaurantProvider(restaurantService: RestaurantService())),
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ChangeNotifierProvider(
+          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+        ),
+        ChangeNotifierProvider(create: (_) => SchedulingProvider()),
+        ChangeNotifierProvider(
+          create: (_) => PreferencesProvider(
+            preferencesHelper: PreferencesHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
             ),
           ),
-        ],
-        child: Consumer<PreferencesProvider>(
-          builder: (context, provider, child) {
-            return MaterialApp(
-              navigatorKey: navigatorKey,
-              title: 'Flutter Demo',
-              theme: provider.themeData,
-              initialRoute: SplashScreen.routeName,
-              routes: {
-                SplashScreen.routeName: (context) => SplashScreen(),
-                HomePage.routeName: (context) => HomePage(),
-                DetailPage.routeName: (context) => DetailPage(
-                    id: ModalRoute.of(context).settings.arguments
-                )
-              },
-            );
-          },
         ),
+      ],
+      child: Consumer<PreferencesProvider>(
+        builder: (context, provider, child) {
+          return MaterialApp(
+            navigatorKey: navigatorKey,
+            title: 'Flutter Demo',
+            theme: provider.themeData,
+            initialRoute: SplashScreen.routeName,
+            routes: {
+              SplashScreen.routeName: (context) => SplashScreen(),
+              HomePage.routeName: (context) => HomePage(),
+              DetailPage.routeName: (context) =>
+                  DetailPage(id: ModalRoute.of(context).settings.arguments)
+            },
+          );
+        },
+      ),
     );
   }
 }
-

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splashscreen';
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }

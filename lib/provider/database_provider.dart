@@ -3,22 +3,23 @@ import 'package:dicoding_restaurant_app/data/model/restaurant.dart';
 import 'package:dicoding_restaurant_app/utils/restaurant_state.dart';
 import 'package:flutter/widgets.dart';
 
-
-class DatabaseProvider extends ChangeNotifier{
+class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
 
   DatabaseProvider({@required this.databaseHelper}) {
     _getBookmarks();
   }
 
-
   ResultState _state;
+
   ResultState get state => _state;
 
   String _message = '';
+
   String get message => _message;
 
   List<Restaurant> _bookmarks = [];
+
   List<Restaurant> get bookmarks => _bookmarks;
 
   void _getBookmarks() async {
@@ -38,7 +39,7 @@ class DatabaseProvider extends ChangeNotifier{
     try {
       await databaseHelper.insertBookmark(restaurant);
       _getBookmarks();
-    } catch(e){
+    } catch (e) {
       _state = ResultState.Error;
       _message = 'Error: $e';
       notifyListeners();
@@ -54,7 +55,7 @@ class DatabaseProvider extends ChangeNotifier{
     try {
       await databaseHelper.removeBookmark(id);
       _getBookmarks();
-    } catch(e) {
+    } catch (e) {
       _state = ResultState.Error;
       _message = 'Error: $e';
       notifyListeners();
