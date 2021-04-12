@@ -1,5 +1,7 @@
 import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:dicoding_restaurant_app/utils/background_service.dart';
+import 'package:dicoding_restaurant_app/utils/date_time_helper.dart';
+
 import 'package:flutter/material.dart';
 
 class SchedulingProvider extends ChangeNotifier {
@@ -16,7 +18,7 @@ class SchedulingProvider extends ChangeNotifier {
         Duration(hours: 24),
         1,
         BackgroundService.callback,
-        // startAt: DateTimeHelper.format(),
+        startAt: DateTimeHelper.format(),
         exact: true,
         wakeup: true,
       );
